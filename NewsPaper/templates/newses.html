@@ -1,5 +1,7 @@
 {% extends 'flatpages/default.html' %}
 
+{% load custom_filters %}
+
 {% block title %}
 Новости
 {{ newses|length }}
@@ -24,13 +26,13 @@
         {% for news in newses %}
             <tr>
                 <td>
-                    {{ news.header }}
+                    {{ news.header|censor }}
                 </td>
                 <td>
                     {{ news.creation_time|date:'d.m.Y' }}
                 </td>
                 <td>
-                    {{ news.text|truncatewords:20 }}
+                    {{ news.text|truncatechars:50|censor }}
                 </td>
             </tr>
         {% endfor %}
