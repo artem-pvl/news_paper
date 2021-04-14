@@ -1,8 +1,9 @@
 # from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 
 from .models import Post
 from .filters import PostFilter
+from .forms import PostForm
 
 
 class NewsList(ListView):
@@ -31,5 +32,26 @@ class PostsFiltered(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
         return context
+
+
+class PostAdd(CreateView):
+    model = Post
+    template_name = 'add.html'
+    form_class = PostForm
+    success_url = '/news/'
+
+
+class PostEdit(UpdateView):
+    model = Post
+    template_name = 'add.html'
+    form_class = PostForm
+    success_url = '/news/'
+
+
+class PostDelete(DeleteView):
+    model = Post
+    template_name = 'delete.html'
+    queryset = Post.objects.all()
+    success_url = '/news/'
 
 # Create your views here.
