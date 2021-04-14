@@ -1,5 +1,6 @@
 # from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post
 from .filters import PostFilter
@@ -41,7 +42,7 @@ class PostAdd(CreateView):
     success_url = '/news/'
 
 
-class PostEdit(UpdateView):
+class PostEdit(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'add.html'
     form_class = PostForm
