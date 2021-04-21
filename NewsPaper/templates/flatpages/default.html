@@ -34,13 +34,26 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/news/add/">Добавить</a></li>
                     </ul>
                 </div>
+                <div class="collapse navbar-collapse" id="navbarResponsive1">
+                    {% load account %}
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                        <li><div class="nav-link py-3 px-0 px-lg-3 rounded">{% user_display user %}</div></li>
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_email' %}">Change E-mail</a></li>
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_logout' %}">Sign Out</a></li>
+                        {% else %}
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_login' %}">Sign In</a></li>
+                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_signup' %}">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
                 <!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">{% block title %} {% endblock title %}</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">{% block title %}{% endblock title %}{% block head_title %}{% endblock head_title %}</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
@@ -49,9 +62,11 @@
                 </div>
                 <!-- Portfolio Grid Items-->
                 <div class="justify-content-center">
-                   {% block content %}
-                   {{ flatpage.content }}
-                   {% endblock content %}
+                    {% block extra_head %}{% endblock extra_head %}
+                    {% block body %}
+                    {% block content %}{{ flatpage.content }}{% endblock content %}
+                    {% endblock %}
+                    {% block extra_body %}{% endblock %}
                 </div>
             </div>
         </section>
