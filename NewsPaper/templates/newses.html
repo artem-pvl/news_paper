@@ -61,4 +61,8 @@
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
+
+    <div>
+        {% if is_not_author %}<button> <a href="/news/setauthor/">Стать автором</a></button>{% endif %}
+    </div>
 {% endblock content %}

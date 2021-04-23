@@ -1,7 +1,8 @@
 # from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView,\
     CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,\
+    PermissionRequiredMixin
 
 from .models import Post
 from .filters import PostFilter
@@ -18,6 +19,12 @@ class NewsList(ListView):
     context_object_name = 'newses'
     ordering = '-creation_time'
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_author'] = not self.request.user.groups.\
+            filter(name='authors').exists()
+        return context
 
 
 class NewsDetail(DetailView):
@@ -40,24 +47,20 @@ class PostsFiltered(ListView):
         return context
 
 
-class PostAdd(CreateView):
+class PostAdd(PermissionRequiredMixin, CreateView):
     model = Post
     template_name = 'add.html'
     form_class = PostForm
     success_url = '/news/'
+    permission_required = ('news_paper.add_post',)
 
 
-class PostEdit(LoginRequiredMixin, UpdateView):
+class PostEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
     template_name = 'add.html'
     form_class = PostForm
     success_url = '/news/'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_not_author'] = not self.request.user.groups.\
-            filter(name='authors').exists()
-        return context
+    permission_required = ('news_paper.change_post',)
 
 
 class PostDelete(DeleteView):
