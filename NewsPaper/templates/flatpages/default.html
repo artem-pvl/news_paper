@@ -41,6 +41,7 @@
                         <li><div class="nav-link py-3 px-0 px-lg-3 rounded">{% user_display user %}</div></li>
                         <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_email' %}">Change E-mail</a></li>
                         <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_logout' %}">Sign Out</a></li>
+                        {% comment %} <li>{% if is_not_author %}<button> <a href="/news/setauthor/">Стать автором</a></button>{% endif %}</li> {% endcomment %}
                         {% else %}
                         <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_login' %}">Sign In</a></li>
                         <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_signup' %}">Sign Up</a></li>
