@@ -7,8 +7,26 @@
 {% endblock title %}
 
 {% block content %}
-<h1>{{ news.header|censor }}</h1>
-<h6>{{ news.creation_time|date:'d.m.Y G:i' }}</h6>
-<p>{{ news.text|censor }}</p>
-<hr>
+    <h1>{{ news.header|censor }}</h1>
+
+    {% if category %}
+        {% load account %}
+
+        <h5>
+        {% for cat in category %}
+            <div>
+                {{ cat.category__category }}
+                {% if user.is_authenticated %}
+                    {% if cat.category not in subscribed %}
+                        | <button><a href="{% url 'subscribe_category' cat.category %}">Подписаться</a></button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        </h5>
+    {% endif %}
+
+    <h6>{{ news.creation_time|date:'d.m.Y G:i' }}</h6>
+    <p>{{ news.text|censor }}</p>
+    <hr>
 {% endblock content %}

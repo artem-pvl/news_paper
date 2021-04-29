@@ -4,13 +4,14 @@ from django.views.generic import ListView, DetailView, UpdateView, DeleteView,\
 from django.contrib.auth.mixins import LoginRequiredMixin,\
     PermissionRequiredMixin
 
-from .models import Post
+from .models import Category, Post, PostCategory, Mailing
 from .filters import PostFilter
 from .forms import PostForm
 
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
 
 class NewsList(ListView):
@@ -31,7 +32,16 @@ class NewsDetail(DetailView):
     model = Post
     template_name = 'news.html'
     context_object_name = 'news'
-    queryset = Post.objects.filter(type=Post.NEWS).values()
+    # queryset = Post.objects.filter(type=Post.NEWS).values()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = list(PostCategory.objects.filter(
+            post=self.kwargs['pk']).values('category', 'category__category'))
+        sub = list(Mailing.objects.filter(subscribers=self.request.user.id).
+                   values('category'))
+        context['subscribed'] = [s['category'] for s in sub]
+        return context
 
 
 class PostsFiltered(ListView):
@@ -76,6 +86,17 @@ def author_me(request):
     premium_group = Group.objects.get(name='authors')
     if not request.user.groups.filter(name='authors').exists():
         premium_group.user_set.add(user)
+    return redirect('/news')
+
+
+@login_required
+def subscribe_me(request, pk):
+    if not Mailing.objects.check(subscribers=get_user_model().
+                                 objects.get(id=request.user.id),
+                                 category=Category.objects.get(id=pk)):
+        Mailing.objects.create(subscribers=get_user_model().
+                               objects.get(id=request.user.id),
+                               category=Category.objects.get(id=pk))
     return redirect('/news')
 
 # Create your views here.
