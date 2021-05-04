@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from .secret import EMAIL_FOR_SEND, EMAIL_FOR_SEND_PASS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -156,8 +157,8 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/news/'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_FORMS = {'signup': 'news_paper.forms.BasicSignupForm'}
 
@@ -165,6 +166,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = EMAIL_FOR_SEND
+EMAIL_HOST_PASSWORD = EMAIL_FOR_SEND_PASS
 EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True

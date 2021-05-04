@@ -20,5 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('news/', include('news_paper.urls')),
-    path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls')),
+    # path('appointments/', include(('appointment.urls', 'appointments'),
+    #                               namespace='appointments')),
+    path('accounts/', include('allauth.urls')),
 ]
