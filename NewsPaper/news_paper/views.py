@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, UpdateView, DeleteView,\
 from django.contrib.auth.mixins import LoginRequiredMixin,\
     PermissionRequiredMixin
 
-from .models import Category, Post, PostCategory, Mailing
+from .models import Author, Category, Post, PostCategory, Mailing
 from .filters import PostFilter
 from .forms import PostForm
 
@@ -12,6 +12,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from datetime import date
 
 
 class NewsList(ListView):
@@ -32,7 +33,6 @@ class NewsDetail(DetailView):
     model = Post
     template_name = 'news.html'
     context_object_name = 'news'
-    # queryset = Post.objects.filter(type=Post.NEWS).values()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,6 +41,8 @@ class NewsDetail(DetailView):
         sub = list(Mailing.objects.filter(subscribers=self.request.user.id).
                    values('category'))
         context['subscribed'] = [s['category'] for s in sub]
+        context['author_name'] = Post.objects.filter(id=self.kwargs['pk']).\
+            values('author__user_id__username')[0]['author__user_id__username']
         return context
 
 
@@ -64,6 +66,10 @@ class PostAdd(PermissionRequiredMixin, CreateView):
     success_url = '/news/'
     permission_required = ('news_paper.add_post',)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 class PostEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
@@ -86,6 +92,7 @@ def author_me(request):
     premium_group = Group.objects.get(name='authors')
     if not request.user.groups.filter(name='authors').exists():
         premium_group.user_set.add(user)
+        Author.objects.get_or_create(user_id=request.user)
     return redirect('/news')
 
 
