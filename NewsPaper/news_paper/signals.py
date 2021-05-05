@@ -10,14 +10,12 @@ from django.template.loader import render_to_string
 @receiver(m2m_changed, sender=PostCategory)
 def do_mailing(sender, action, instance, **kwargs):
     if action == 'post_add':
-        print(sender.objects.filter(post=instance.id).values('category'))
         category_lst = list(sender.objects.filter(post=instance.id).
                             values('category'))
         for category in category_lst:
             mailing_list = list(Mailing.objects.filter(
                 category=category['category']).values('subscribers__username',
                                                       'subscribers__email'))
-            print(category, mailing_list)
             for mail in mailing_list:
 
                 html_content = render_to_string(
