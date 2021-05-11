@@ -23,5 +23,4 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     # path('appointments/', include(('appointment.urls', 'appointments'),
     #                               namespace='appointments')),
-    path('accounts/', include('allauth.urls')),
 ]
