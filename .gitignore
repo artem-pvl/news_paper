@@ -3,3 +3,5 @@
 **/__pycache__/
 .vscode
 secret.py
+NewsPaper/cache_files/**
+!/NewsPaper/cache_files

@@ -19,23 +19,4 @@ def do_mailing(sender, action, instance, **kwargs):
                                                       'subscribers__email'))
             for mail in mailing_list:
 
-                # html_content = render_to_string(
-                #     'mailing.html',
-                #     {
-                #         'post': instance,
-                #         'text': instance.priview(),
-                #         'username': mail["subscribers__username"],
-                #     }
-                # )
-
-                # msg = EmailMultiAlternatives(
-                #     subject=f'{instance.header}',
-                #     body=f'Здравствуй, {mail["subscribers__username"]}. '
-                #     'Новая статья в твоём любимом разделе!',
-                #     from_email='sf.testmail@yandex.ru',
-                #     to=[mail['subscribers__email']],
-                # )
-                # msg.attach_alternative(html_content, "text/html")
-
                 send_mail.delay(instance.id, mail)
-                # msg.send()

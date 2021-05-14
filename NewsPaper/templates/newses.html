@@ -2,11 +2,15 @@
 
 {% load custom_filters %}
 
+{% load cache %}
+{% cache 5 title %}
 {% block title %}
 Новости
 {{ newses|length }}
 {% endblock title %}
+{% endcache %}
 
+{% cache 5 title %}
 {% block content %}
     <h1>Все новости</h1>
     <hr>
@@ -66,3 +70,4 @@
         {% if is_not_author %}<button> <a href="/news/setauthor/">Стать автором</a></button>{% endif %}
     </div>
 {% endblock content %}
+{% endcache %}

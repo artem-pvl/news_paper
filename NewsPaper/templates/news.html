@@ -15,7 +15,7 @@
         <h5>
         {% for cat in category %}
             <div>
-                {{ cat.category__category }}
+                <a href="{% url 'category' cat.category %}">{{ cat.category__category }}</a>
                 {% if user.is_authenticated %}
                     {% if cat.category not in subscribed %}
                         | <button><a href="{% url 'subscribe_category' cat.category %}">Подписаться</a></button>

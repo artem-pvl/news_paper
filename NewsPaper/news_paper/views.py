@@ -12,7 +12,6 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from datetime import date
 
 
 class NewsList(ListView):
@@ -26,6 +25,23 @@ class NewsList(ListView):
         context = super().get_context_data(**kwargs)
         context['is_not_author'] = not self.request.user.groups.\
             filter(name='authors').exists()
+        return context
+
+
+class NewsCategoryList(ListView):
+    model = Post
+    template_name = 'category.html'
+    context_object_name = 'category'
+    ordering = '-creation_time'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        qs = Post.objects.filter(categories__id=self.kwargs['pk'])
+        context['category'] = qs
+        context['category_name'] = Category.objects.get(id=self.kwargs['pk'])
+        sub = list(Mailing.objects.filter(subscribers=self.request.user.id).
+                   values('category'))
+        context['subscribed'] = [s['category'] for s in sub]
         return context
 
 
