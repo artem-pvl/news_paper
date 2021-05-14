@@ -1,6 +1,8 @@
 from django.db import models
 import django.contrib.auth
 
+from django.core.cache import cache
+
 
 class Author(models.Model):
     rating = models.IntegerField(default=0)
@@ -54,6 +56,10 @@ class Post(models.Model):
 
     def priview(self):
         return self.text[:125] + ('...' if len(self.text) > 124 else '')
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete(f'post-{self.pk}')
 
 
 class PostCategory(models.Model):
