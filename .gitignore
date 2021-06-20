@@ -5,3 +5,6 @@
 secret.py
 NewsPaper/cache_files/**
 !/NewsPaper/cache_files
+errors.log
+general.log
+security.log

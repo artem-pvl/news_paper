@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from .secret import EMAIL_FOR_SEND, EMAIL_FOR_SEND_PASS
 
+import logging
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,6 +28,139 @@ SECRET_KEY = '8!7mwa0*%8#m#j)+==^)*3_m4_@@az+ft*f$x7-g_$=_)+eka3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+
+def log_filter_debug_info(rec: logging.LogRecord):
+    return (rec.levelname == 'DEBUG') or (rec.levelname == 'INFO')
+
+
+def log_filter_warning(rec: logging.LogRecord):
+    return rec.levelname == 'WARNING'
+
+
+def log_filter_error_critical(rec: logging.LogRecord):
+    return (rec.levelname == 'ERROR') or (rec.levelname == 'CRITICAL')
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'deb': {
+            'format': '{asctime} {levelname} {message}',
+            'style': '{',
+        },
+        'war': {
+            'format': '{asctime} {levelname} {pathname} {message}',
+            'style': '{',
+        },
+        'cri': {
+            'format': '{asctime} {levelname} {pathname} {message} {exc_info}',
+            'style': '{',
+        },
+        'to_file_general': {
+            'format': '{asctime} {levelname} {module} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'only_debug_info': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': log_filter_debug_info,
+        },
+        'only_warning': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': log_filter_warning,
+        },
+        'only_error_critical': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': log_filter_error_critical,
+        },
+    },
+    'handlers': {
+        'console_debug': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true', 'only_debug_info'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'deb',
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true', 'only_warning'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'war',
+        },
+        'console_critical': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true', 'only_error_critical'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'cri',
+        },
+        'file_general': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'to_file_general',
+            'filename': './general.log'
+        },
+        'file_errors': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'cri',
+            'filename': './errors.log'
+        },
+        'file_security': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'to_file_general',
+            'filename': './security.log'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'war',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console_debug', 'console_warning',
+                         'console_critical', 'file_general'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['file_errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.template': {
+            'handlers': ['file_errors'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.db_backends': {
+            'handlers': ['file_errors'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.security': {
+            'handlers': ['file_security'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    }
+}
 
 ALLOWED_HOSTS = ['127.0.0.1']
 

@@ -15,6 +15,8 @@ from django.contrib.auth import get_user_model
 
 from django.core.cache import cache
 
+import logging
+
 
 class NewsList(ListView):
     model = Post
@@ -44,6 +46,50 @@ class NewsCategoryList(ListView):
         sub = list(Mailing.objects.filter(subscribers=self.request.user.id).
                    values('category'))
         context['subscribed'] = [s['category'] for s in sub]
+
+        logger_dj = logging.getLogger('django')
+        logger_dj_req = logging.getLogger('django.request')
+        logger_dj_ser = logging.getLogger('django.server')
+        logger_dj_tem = logging.getLogger('django.template')
+        logger_dj_db = logging.getLogger('django.db_backends')
+        logger_dj_sec = logging.getLogger('django.security')
+
+        logger_dj.debug('debug1 django YO!')
+        logger_dj.info('info1 django YO!')
+        logger_dj.warning('warning1 django YO!')
+        logger_dj.error('error1 django YO!')
+        logger_dj.critical('critical1 django YO!')
+
+        logger_dj_sec.debug('debug1 django.security YO!')
+        logger_dj_sec.info('info1 django.security YO!')
+        logger_dj_sec.warning('warning1 django.security YO!')
+        logger_dj_sec.error('error1 django.security YO!')
+        logger_dj_sec.critical('critical1 django.security YO!')
+
+        logger_dj_db.debug('debug1 django.db_backends YO!')
+        logger_dj_db.info('info1 django.db_backends YO!')
+        logger_dj_db.warning('warning1 django.db_backends YO!')
+        logger_dj_db.error('error1 django.db_backends YO!')
+        logger_dj_db.critical('critical1 django.db_backends YO!')
+
+        logger_dj_req.debug('debug1 django.request YO!')
+        logger_dj_req.info('info1 django.request YO!')
+        logger_dj_req.warning('warning1 django.request YO!')
+        logger_dj_req.error('error1 django.request YO!')
+        logger_dj_req.critical('critical1 django.request YO!')
+
+        logger_dj_ser.debug('debug1 django.server YO!')
+        logger_dj_ser.info('info1 django.server YO!')
+        logger_dj_ser.warning('warning1 django.server YO!')
+        logger_dj_ser.error('error1 django.server YO!')
+        logger_dj_ser.critical('critical1 django.server YO!')
+
+        logger_dj_tem.debug('debug1 django.template YO!')
+        logger_dj_tem.info('info1 django.template YO!')
+        logger_dj_tem.warning('warning1 django.template YO!')
+        logger_dj_tem.error('error1 django.template YO!')
+        logger_dj_tem.critical('critical1 django.template YO!')
+
         return context
 
 
