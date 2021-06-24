@@ -2,6 +2,7 @@ from django.db import models
 import django.contrib.auth
 
 from django.core.cache import cache
+from django.utils.translation import gettext
 
 
 class Author(models.Model):
@@ -34,8 +35,8 @@ class Post(models.Model):
     ARTICLE = 'A'
 
     POST_TYPE = [
-        (NEWS, 'Новость'),
-        (ARTICLE, 'Статья'),
+        (NEWS, gettext('News')),
+        (ARTICLE, gettext('Article')),
     ]
 
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
