@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,9 @@
     <title>{{ post.header }}</title>
 </head>
 <body>
-    <p>Здравствуй, {{ user.username }}. Новые статьи за неделю:</p>
+    <p>
+        {% blocktranslate with name=user.username %}Hello, {{name}}. New articles for the week:{% endblocktranslate %}
+    </p>
     <ul>
     {% for p in post %}
         <li><a href="http://127.0.0.1:8000{% url 'detail_news' p.id %}">{{ p.header }}</a></li>

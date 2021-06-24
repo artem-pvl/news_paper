@@ -1,32 +1,33 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
 {% load custom_filters %}
 
 {% block title %}
-Поиск статьи
+{% translate "Article search" %}
 {{ filter.qs|length }}
 {% endblock title %}
 
 {% block content %}
     <form method="GET">
         {{ filter.form }}
-        <input type="submit" value="Найти">
+        <input type="submit" value={% translate "Find" %}>
     </form>
     <hr>
         <table>
             <thead>
                 <tr>
                     <td>
-                        Дата публикации
+                        {% translate "Publication date" %}
                     </td>
                     <td>
-                        Автор
+                        {% translate "Author" %}
                     </td>
                     <td>
-                        Заголовок
+                        {% translate "Header" %}
                     </td>
                     <td>
-                        Новость
+                        {% translate "Article" %}
                     </td>
                 </tr>
             </thead>

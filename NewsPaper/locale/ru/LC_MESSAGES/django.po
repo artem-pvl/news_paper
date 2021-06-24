@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-24 13:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: news_paper/tasks.py:28 templates/mailing.html:11
+#, python-format
+msgid "Hello, %(name)s. New articles in your favorite category!"
+msgstr "Здравствуй, %(name)s. Новая статья в твоём любимом разделе!"
+
+#: news_paper/tasks.py:60 templates/mailing_list.html:11
+#, python-format
+msgid "Hello, %(name)s. New articles for the week:"
+msgstr "Здравствуй, %(name)s. Новые статьи за неделю:"
+
+#: news_paper/tasks.py:66
+#, fuzzy
+#| msgid "No articles!"
+msgid "New articles list"
+msgstr "Нет статей!"
+
+#: templates/add.html:7
+msgid "Article edit"
+msgstr "Редактировать статью"
+
+#: templates/add.html:11
+msgid "Editing"
+msgstr "Редактирование"
+
+#: templates/add.html:16
+msgid "Add article"
+msgstr "Добавить статью"
+
+#: templates/category.html:7
+msgid "News"
+msgstr "Новости"
+
+#: templates/category.html:16 templates/news.html:22
+msgid "Subscribe"
+msgstr "Подписаться"
+
+#: templates/category.html:26 templates/delete.html:17 templates/newses.html:23
+#: templates/search.html:27
+msgid "Header"
+msgstr "Заголовок"
+
+#: templates/category.html:29 templates/delete.html:20 templates/newses.html:26
+#: templates/search.html:21
+msgid "Publication date"
+msgstr "Дата публикации"
+
+#: templates/category.html:32 templates/delete.html:23 templates/news.html:7
+#: templates/newses.html:29 templates/search.html:30
+msgid "Article"
+msgstr "Статья"
+
+#: templates/category.html:40 templates/newses.html:37
+msgid "Edit"
+msgstr "Редактировать"
+
+#: templates/category.html:41 templates/newses.html:38
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/category.html:54 templates/newses.html:51
+msgid "First"
+msgstr "Первая"
+
+#: templates/category.html:66 templates/newses.html:63
+msgid "Last"
+msgstr "Последняя"
+
+#: templates/category.html:70 templates/newses.html:67
+msgid "No articles!"
+msgstr "Нет статей!"
+
+#: templates/category.html:74 templates/newses.html:71
+msgid "Become an author"
+msgstr "Стать автором"
+
+#: templates/delete.html:7
+msgid "Deleting the article"
+msgstr "Удаление статьи"
+
+#: templates/delete.html:11
+msgid "Are you really want to delete the article?"
+msgstr "Вы действительно хотите удалить статью?"
+
+#: templates/delete.html:41
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: templates/flatpages/default.html:11
+msgid "Freelancer - Start Bootstrap Theme"
+msgstr "Фрилансер - Стартовая тема Бутстрап"
+
+#: templates/flatpages/default.html:26
+msgid "Start Bootstrap"
+msgstr "Стартовый бутстрап"
+
+#: templates/flatpages/default.html:29
+msgid "Main"
+msgstr "Главная"
+
+#: templates/flatpages/default.html:30
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/flatpages/default.html:31
+msgid "Add"
+msgstr "Добавить"
+
+#: templates/flatpages/default.html:39
+msgid "Change E-mail"
+msgstr "Изменить E-mail"
+
+#: templates/flatpages/default.html:40
+msgid "Sign Out"
+msgstr "Выйти из аккаунта"
+
+#: templates/flatpages/default.html:42
+msgid "Sign In"
+msgstr "Войти"
+
+#: templates/flatpages/default.html:43
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+#: templates/news.html:32
+msgid "Author:"
+msgstr "Автор:"
+
+#: templates/newses.html:9
+msgid "Articles"
+msgstr "Статьи"
+
+#: templates/newses.html:16
+msgid "All articles"
+msgstr "Все статьи"
+
+#: templates/search.html:7
+msgid "Article search"
+msgstr "Найти статью"
+
+#: templates/search.html:14
+msgid "Find"
+msgstr "Найти"
+
+#: templates/search.html:24
+msgid "Author"
+msgstr "Автор"
+
+#~ msgid "News item"
+#~ msgstr "Новость"

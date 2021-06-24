@@ -4,6 +4,7 @@ import django.contrib.auth
 from .models import Post, Mailing
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
+from django.utils.translation import gettext
 
 from datetime import datetime, timedelta
 
@@ -23,8 +24,10 @@ def send_mail(post_id, mailing):
 
     msg = EmailMultiAlternatives(
         subject=f'{post.header}',
-        body=f'Здравствуй, {mailing["subscribers__username"]}. '
-        'Новая статья в твоём любимом разделе!',
+        body=gettext(
+            'Hello, %(name)s. New articles in your favorite category!') % {
+                    'name': mailing["subscribers__username"]
+                },
         from_email='sf.testmail@yandex.ru',
         to=[mailing['subscribers__email']],
     )
@@ -53,12 +56,18 @@ def do_mailing():
                 }
             )
 
+            msg_text = gettext(
+                'Hello, %(name)s. New articles for the week:'
+            ) % {'name': person.username}
+
             posts_list_txt = ', '.join([post.header for post in send_post])
+
             msg = EmailMultiAlternatives(
-                subject='Список новых статей',
-                body=f'Здравствуй, {person.username}.'
-                f'Список новых статей за неделю:'
-                f'{posts_list_txt}',
+                subject=gettext('New articles list'),
+                body=msg_text+'\n'+posts_list_txt,
+                # body=f'Здравствуй, {person.username}.'
+                # f'Список новых статей за неделю:'
+                # f'{posts_list_txt}',
                 from_email='sf.testmail@yandex.ru',
                 to=[person.email],
             )

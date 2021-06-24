@@ -1,27 +1,28 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
 {% load custom_filters %}
 
 {% block title %}
-Удаление статьи
+{% translate "Deleting the article" %}
 {% endblock title %}
 
 {% block content %}
-    <h1>Вы действительно хотите удалить статью?</h1>
+    <h1>{% translate "Are you really want to delete the article?" %}</h1>
     <hr>
     <table>
         <thead>
-          <tr>
-              <td>
-                  Заголовок
-              </td>
-              <td>
-                  Дата публикации
-              </td>
-              <td>
-                  Новость
-              </td>
-          </tr>
+            <tr>
+                <td>
+                    {% translate "Header" %}
+                </td>
+                <td>
+                    {% translate "Publication date" %}
+                </td>
+                <td>
+                    {% translate "Article" %}
+                </td>
+            </tr>
         </thead>
         <tr>
             <td>
@@ -37,6 +38,6 @@
     </table>
     <form method="POST">
         {% csrf_token %}
-        <input type="submit" value="подтвердить">
+        <input type="submit" value={% translate "Confirm" %}>
     </form>
 {% endblock content %}

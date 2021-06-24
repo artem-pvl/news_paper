@@ -1,9 +1,10 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
 {% load custom_filters %}
 
 {% block title %}
-Новость
+{% translate "Article" %}
 {% endblock title %}
 
 {% block content %}
@@ -18,7 +19,7 @@
                 <a href="{% url 'category' cat.category %}">{{ cat.category__category }}</a>
                 {% if user.is_authenticated %}
                     {% if cat.category not in subscribed %}
-                        | <button><a href="{% url 'subscribe_category' cat.category %}">Подписаться</a></button>
+                        | <button><a href="{% url 'subscribe_category' cat.category %}">{% translate "Subscribe" %}</a></button>
                     {% endif %}
                 {% endif %}
             </div>
@@ -28,6 +29,6 @@
 
     <h6>{{ news.creation_time|date:'d.m.Y G:i' }}</h6>
     <p>{{ news.text|censor }}</p>
-    <h6>Автор: {{ author_name }}</h6>
+    <h6>{% translate "Author:" %} {{ author_name }}</h6>
     <hr>
 {% endblock content %}

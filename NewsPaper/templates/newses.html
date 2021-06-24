@@ -1,31 +1,32 @@
 {% extends 'flatpages/default.html' %}
 
+{% load i18n %}
 {% load custom_filters %}
 
 {% load cache %}
 {% cache 5 title %}
 {% block title %}
-Новости
+{% translate "Articles" %}
 {{ newses|length }}
 {% endblock title %}
 {% endcache %}
 
 {% cache 5 title %}
 {% block content %}
-    <h1>Все новости</h1>
+    <h1>{% translate "All articles" %}</h1>
     <hr>
     {% if newses %}
         <table>
             <thead>
                 <tr>
                     <td>
-                        Заголовок
+                        {% translate "Header" %}
                     </td>
                     <td>
-                        Дата публикации
+                        {% translate "Publication date" %}
                     </td>
                     <td>
-                        Новость
+                        {% translate "Article" %}
                     </td>
                 </tr>
             </thead>
@@ -33,8 +34,8 @@
             <tr>
                 <td>
                     <a href="{% url 'detail_news' news.id %}">{{ news.header|censor }}</a>
-                    <a href="{% url 'news_edit' news.id %}"><u>Редактировать</u></a>
-                    <a href="{% url 'news_delete' news.id %}"><u>Удалить</u></a>
+                    <a href="{% url 'news_edit' news.id %}"><u>{% translate "Edit" %}</u></a>
+                    <a href="{% url 'news_delete' news.id %}"><u>{% translate "Delete" %}</u></a>
                 </td>
                 <td>
                     {{ news.creation_time|date:'d.m.Y' }}
@@ -47,8 +48,8 @@
         </table>
         {% if is_paginated %}
             {% if page_obj.has_previous %}
-                <a href="?page=1">First </a>
-                <a href="?page={{ page_obj.previous_page_number }}"> <<< </a>
+                <a href="?page=1">{% translate "First" %}</a>
+                <a href="?page={{ page_obj.previous_page_number }}"> < </a>
             {% endif %}
             {% for num in page_obj.paginator.page_range %}
                 {% if page_obj.number == num %}
@@ -58,16 +59,16 @@
                 {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}"> >>> </a>
-                <a href="?page={{ page_obj.paginator.num_pages }}"> Last</a>
+                <a href="?page={{ page_obj.next_page_number }}"> > </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">{% translate "Last" %}</a>
             {% endif %}
         {% endif %}
     {% else %}
-        <h2>Новостей нет!</h2>
+        <h2>{% translate "No articles!" %}</h2>
     {% endif %}
 
     <div>
-        {% if is_not_author %}<button> <a href="/news/setauthor/">Стать автором</a></button>{% endif %}
+        {% if is_not_author %}<button> <a href="/news/setauthor/">{% translate "Become an author" %}</a></button>{% endif %}
     </div>
 {% endblock content %}
 {% endcache %}
