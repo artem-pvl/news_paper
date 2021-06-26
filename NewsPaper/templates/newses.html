@@ -1,20 +1,35 @@
 {% extends 'flatpages/default.html' %}
 
 {% load i18n %}
+{% load tz %}
 {% load custom_filters %}
 
-{% load cache %}
-{% cache 5 title %}
 {% block title %}
 {% translate "Articles" %}
 {{ newses|length }}
 {% endblock title %}
-{% endcache %}
 
-{% cache 5 title %}
 {% block content %}
+    <style>
+        body {background-color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} darkcyan {% else %} white {% endif %};}
+    </style>
+
     <h1>{% translate "All articles" %}</h1>
     <hr>
+
+    {% get_current_timezone as TIME_ZONE %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="timezone">{% translate "Time zone:" %}</label>
+        <select name="timezone">
+            {% for tz in timezones %}
+                <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value={% translate "Set" %}>
+    </form>
+    {{current_time}}
+
     {% if newses %}
         <table>
             <thead>
@@ -71,4 +86,3 @@
         {% if is_not_author %}<button> <a href="/news/setauthor/">{% translate "Become an author" %}</a></button>{% endif %}
     </div>
 {% endblock content %}
-{% endcache %}

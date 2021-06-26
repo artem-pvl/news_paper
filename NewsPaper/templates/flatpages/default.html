@@ -23,27 +23,28 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">{% trans "Start Bootstrap" %}</a>
+                <a class="navbar-brand" href="#page-top">{% trans "Start Bootstrap" %}</a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/news/">{% trans "Main" %}</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/news/search/">{% trans "Search" %}</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/news/add/">{% trans "Add" %}</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/news/">{% trans "Main" %}</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/news/search/">{% trans "Search" %}</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/news/add/">{% trans "Add" %}</a></li>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarResponsive1">
                     {% load account %}
                     <ul class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
-                        <li><div class="nav-link py-3 px-0 px-lg-3 rounded">{% user_display user %}</div></li>
-                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a></li>
-                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
+                            <li><div class="nav-link py-3 px-0 px-lg-3 rounded">{% user_display user %}</div></li>
+                            <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a></li>
+                            <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
                         {% else %}
-                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
-                        <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+                            <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
+                            <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
                         {% endif %}
                     </ul>
-                        <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %}
+                        <form action="{% url 'set_language' %}" method="POST">
+                            {% csrf_token %}
                             <input type="hidden" name="next" value="{{ redirect_to }}">
                             <select name="language" id="">
                                 {% get_available_languages as LANGUAGES %}
@@ -65,7 +66,10 @@
             <div class="container">
                 <!-- Portfolio Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
-                    {% block title %}{% endblock title %}{% block head_title %}{% endblock head_title %}
+                    {% block title %}
+                    {% endblock title %}
+                    {% block head_title %}
+                    {% endblock head_title %}
                 </h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -75,11 +79,15 @@
                 </div>
                 <!-- Portfolio Grid Items-->
                 <div class="justify-content-center">
-                    {% block extra_head %}{% endblock extra_head %}
+                    {% block extra_head %}
+                    {% endblock extra_head %}
                     {% block body %}
-                    {% block content %}{{ flatpage.content }}{% endblock content %}
-                    {% endblock %}
-                    {% block extra_body %}{% endblock %}
+                        {% block content %}
+                            {{ flatpage.content }}
+                        {% endblock content %}
+                    {% endblock body %}
+                    {% block extra_body %}
+                    {% endblock extra_body %}
                 </div>
             </div>
         </section>

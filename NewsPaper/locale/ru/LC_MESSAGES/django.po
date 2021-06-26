@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 14:24+0000\n"
+"POT-Creation-Date: 2021-06-24 18:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgid "News"
 msgstr "Новости"
 
 #: news_paper/models.py:39 templates/category.html:32 templates/delete.html:23
-#: templates/news.html:7 templates/newses.html:29 templates/search.html:30
+#: templates/news.html:7 templates/newses.html:43 templates/search.html:30
 msgid "Article"
 msgstr "Статья"
 
@@ -61,37 +61,37 @@ msgstr "Добавить статью"
 msgid "Subscribe"
 msgstr "Подписаться"
 
-#: templates/category.html:26 templates/delete.html:17 templates/newses.html:23
+#: templates/category.html:26 templates/delete.html:17 templates/newses.html:37
 #: templates/search.html:27
 msgid "Header"
 msgstr "Заголовок"
 
-#: templates/category.html:29 templates/delete.html:20 templates/newses.html:26
+#: templates/category.html:29 templates/delete.html:20 templates/newses.html:40
 #: templates/search.html:21
 msgid "Publication date"
 msgstr "Дата публикации"
 
-#: templates/category.html:40 templates/newses.html:37
+#: templates/category.html:40 templates/newses.html:51
 msgid "Edit"
 msgstr "Редактировать"
 
-#: templates/category.html:41 templates/newses.html:38
+#: templates/category.html:41 templates/newses.html:52
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/category.html:54 templates/newses.html:51
+#: templates/category.html:54 templates/newses.html:65
 msgid "First"
 msgstr "Первая"
 
-#: templates/category.html:66 templates/newses.html:63
+#: templates/category.html:66 templates/newses.html:77
 msgid "Last"
 msgstr "Последняя"
 
-#: templates/category.html:70 templates/newses.html:67
+#: templates/category.html:70 templates/newses.html:81
 msgid "No articles!"
 msgstr "Нет статей!"
 
-#: templates/category.html:74 templates/newses.html:71
+#: templates/category.html:74 templates/newses.html:85
 msgid "Become an author"
 msgstr "Стать автором"
 
@@ -147,13 +147,21 @@ msgstr "Зарегистрироваться"
 msgid "Author:"
 msgstr "Автор:"
 
-#: templates/newses.html:9
+#: templates/newses.html:10
 msgid "Articles"
 msgstr "Статьи"
 
-#: templates/newses.html:16
+#: templates/newses.html:17
 msgid "All articles"
 msgstr "Все статьи"
+
+#: templates/newses.html:23
+msgid "Time zone:"
+msgstr "Часовой пояс:"
+
+#: templates/newses.html:29
+msgid "Set"
+msgstr "Задать"
 
 #: templates/search.html:7
 msgid "Article search"

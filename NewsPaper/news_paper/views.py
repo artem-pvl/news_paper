@@ -14,6 +14,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 
 from django.core.cache import cache
+import pytz
+from django.utils import timezone
 
 
 class NewsList(ListView):
@@ -27,7 +29,15 @@ class NewsList(ListView):
         context = super().get_context_data(**kwargs)
         context['is_not_author'] = not self.request.user.groups.\
             filter(name='authors').exists()
+
+        context['timezones'] = pytz.common_timezones
+        context['current_time'] = timezone.localtime()
+
         return context
+
+    def post(self, reqest):
+        reqest.session['django_timezone'] = reqest.POST['timezone']
+        return redirect('/news')
 
 
 class NewsCategoryList(ListView):
